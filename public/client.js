@@ -34,13 +34,14 @@ $('#form').submit((e) => {
   e.preventDefault();
   const message = $('#input').val();
   if (message.trim() !== '') {
-    socket.emit('message', { message: message });
+    const emojiMessage = replaceEmojis(message);
+    socket.emit('message', { message: emojiMessage });
     $('#input').val('');
   }
 });
 
 socket.on('message', (data) => {
-  const message = `<strong>${data.username}:</strong> ${data.message}`;
+  const message = `<strong>${data.username}:</strong> ${replaceEmojis(data.message)}`;
   $('#messages').append($('<li>').html(message));
   updateScroll();
 });
@@ -48,4 +49,26 @@ socket.on('message', (data) => {
 function updateScroll() {
   const chatWindow = document.getElementById('chat-window');
   chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
+function replaceEmojis(message) {
+  const emojiMap = {
+    react: "⚛️",
+    woah: "😲",
+    hey: "👋",
+    lol: "😂",
+    like: "🤍",
+    congratulations: "🎉",
+  };
+
+  const words = message.split(/\s+/);
+  const replacedWords = words.map(word => {
+    const lowerCaseWord = word.toLowerCase();
+    if (emojiMap.hasOwnProperty(lowerCaseWord)) {
+      return emojiMap[lowerCaseWord];
+    }
+    return word;
+  });
+
+  return replacedWords.join(' ');
 }
