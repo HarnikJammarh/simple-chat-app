@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Socket.io Chat App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Socket.io Chat App</h1>
+
+  <div class="container">
+    <div class="user-list">
+      <h2>Users</h2>
+      <ul id="users"></ul>
+    </div>
+    <div class="chat">
+      <h2>Messages</h2>
+      <div id="chat-window">
+        <ul id="messages"></ul>
+      </div>
+      <form id="form" action="">
+        <input id="input" autocomplete="off" placeholder="Type a message..." />
+        <button>Send</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="login-box" id="login-box">
+    <div class="glassmorphism login-content">
+      <h2>Enter Your Username</h2>
+      <input type="text" id="username-input" placeholder="Username" />
+      <button id="username-submit">Enter</button>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="client.js"></script>
+</body>
+</html>
