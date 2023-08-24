@@ -72,3 +72,49 @@ function replaceEmojis(message) {
 
   return replacedWords.join(' ');
 }
+
+socket.on('message', (data) => {
+
+  const message = data.message;
+  
+  if(message.startsWith('/')) {
+    handleCommand(message);
+    return;
+  }
+});
+
+function handleCommand(command) {
+
+  if(command === '/help') {
+    showHelp();
+    return;
+  }
+
+  if(command === '/random') {
+    const randomNum = Math.floor(Math.random() * 100); 
+    displayMessage('Random number: ' + randomNum);
+    return;
+  }
+
+  if(command === '/clear') {
+    clearMessages();
+    return;
+  }
+}
+
+function showHelp() {
+  // show alert popup
+  let helpText = '/help - shows this message\n';
+  helpText += '/random - prints a random number\n';
+  helpText += '/clear - clears the chat';
+
+  alert(helpText);
+}
+
+function clearMessages() {
+  $('#messages').empty(); 
+}
+
+function displayMessage(msg) {
+  $('#messages').append($('<li>').text(msg));
+}
